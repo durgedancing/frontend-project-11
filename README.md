@@ -4,4 +4,4 @@
 <a href="https://codeclimate.com/github/durgedancing/frontend-project-11/maintainability"><img src="https://api.codeclimate.com/v1/badges/13bc0acf401bfd165cd0/maintainability" /></a>
 
 link to Vercel 
-<a href ="https://frontend-project-11-silk.vercel.app/">
+<a href ="https://frontend-project-11-durgedancing.vercel.app/"></a>
