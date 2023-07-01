@@ -10,3 +10,7 @@ build:
 
 lint:
 	npx eslint .
+
+
+fuf:
+	node test/start.js
