@@ -77,6 +77,7 @@ export default (i118n, state, elements) => {
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
+    console.log('boom');
     const formData = new FormData(e.target);
     const value = formData.get('url');
     console.log(`this is input value ${value}`);
