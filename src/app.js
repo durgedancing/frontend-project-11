@@ -1,35 +1,30 @@
-import app from 'validator.js';
-
-const stateOfInput = {
-    current: '',
-    default: '',
-}
-
-const feeds = {
-    addreses: [],
-};
+import i18n from 'i18next';
+import app from './validator.js';
+import resources from '../locales/index.js';
 
 const elements = {
-    form: document.querySelector('.form-floating'),
-    feedback: document.querySelector('.feedback'),
+  form: document.querySelector('.form-floating'),
+  feedback: document.querySelector('.feedback'),
+  posts: document.querySelector('.posts'),
+  feeds: document.querySelector('.feeds'),
 };
 
-const runApp = async () => {
-    const stateOfInput = {
-        input: {
-            current: '',
-            default: '', 
-        },
-        feedback: '',
-    }
-
-    const i18nextInstance = i18n.createInstance();
-    await i18nextInstance.init({
-      lng: 'en',
-      debug: true,
-      resources,
-    });
-    app(i18nextInstance, state, container);
+export default () => {
+  const state = {
+    input: {
+      current: '',
+      default: '',
+    },
+    feedback: '', // current error or success
+    subscribed: [],
   };
 
-app(feeds.addreses, stateOfInput, elements);
+  i18n
+    .createInstance()
+    .init({
+      lng: 'ru',
+      debug: true,
+      resources,
+    })
+    .then((result) => app(result, state, elements));
+};

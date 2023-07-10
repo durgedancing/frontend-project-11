@@ -13,4 +13,4 @@ lint:
 
 
 fuf:
-	node test/start.js
+	node test/index.js
