@@ -23,11 +23,12 @@ const renderFeedback = (i118n, state, elements) => {
 };
 
 export default (i118n, state, elements) => {
-  const { form, feedback, posts, feeds } = elements;
-  console.log(form.innerHTML);
-  console.log(feedback.innerHTML);
-  console.log(posts.innerHTML);
-  console.log(feeds.innerHTML);
+  const {
+    form,
+    feedback,
+    posts,
+    feeds,
+  } = elements;
   const watcher = onChange(state, (path, value) => {
     setLocale({
       mixed: {
@@ -45,7 +46,7 @@ export default (i118n, state, elements) => {
       .url();
 
     switch (path) {
-      case 'current':
+      case 'inputCurrent':
         inputShema.validate(value)
           .catch((error) => {
             const currentError = error.message;
