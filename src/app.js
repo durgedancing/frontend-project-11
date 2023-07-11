@@ -4,6 +4,7 @@ import resources from '../locales/index.js';
 
 const elements = {
   form: document.querySelector('.rss-form'),
+  input: document.querySelector('.input'),
   feedback: document.querySelector('.feedback'),
   posts: document.querySelector('.posts'),
   feeds: document.querySelector('.feeds'),

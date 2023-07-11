@@ -15,16 +15,25 @@ import parsMe from './parser';
 // };
 
 const renderFeedback = (i118n, state, elements) => {
-  elements.form.input = state.default;
-  console.log(`this is input text content ${elements.form.input.textContent}`);
-  elements.form.focus();
+  const {
+    form,
+    input,
+    feedback,
+  } = elements;
+  console.log(`this is input text content before ${input.textContent}`);
+  input.textContent = state.default;
+  console.log(`this is input text content after ${input.textContent}`);
+  form.focus();
   const feedbackMessage = state.feedback;
-  elements.feedback.textContent = i118n.feedbacks[feedbackMessage];
+  console.log(`feedback massagev ${feedbackMessage}`);
+  console.log(`feedback text: ${i118n.t.feedbacks[feedbackMessage]}`);
+  feedback.textContent = i118n.feedbacks[feedbackMessage];
 };
 
 export default (i118n, state, elements) => {
   const {
     form,
+    input,
     feedback,
     posts,
     feeds,
