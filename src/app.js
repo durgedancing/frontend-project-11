@@ -3,7 +3,7 @@ import app from './validator.js';
 import resources from '../locales/index.js';
 
 const elements = {
-  form: document.querySelector('.form-floating'),
+  form: document.querySelector('.rss-form'),
   feedback: document.querySelector('.feedback'),
   posts: document.querySelector('.posts'),
   feeds: document.querySelector('.feeds'),
