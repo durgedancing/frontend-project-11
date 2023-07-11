@@ -23,9 +23,11 @@ const renderFeedback = (i118n, state, elements) => {
 };
 
 export default (i118n, state, elements) => {
-// i18n contains texts
-// state contains texts - i need to figure this out
-// elements contain all elements iam working with
+  const { form, feedback, posts, feeds } = elements;
+  console.log(form.innerHTML);
+  console.log(feedback.innerHTML);
+  console.log(posts.innerHTML);
+  console.log(feeds.innerHTML);
   const watcher = onChange(state, (path, value) => {
     setLocale({
       mixed: {
@@ -75,7 +77,7 @@ export default (i118n, state, elements) => {
     }
   });
 
-  elements.form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     console.log('boom');
     const formData = new FormData(e.target);
