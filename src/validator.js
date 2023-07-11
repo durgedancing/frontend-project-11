@@ -7,12 +7,12 @@ import parsMe from './parser';
 // what if i ll write different render for different situations?
 // page with feedback
 // enter-page
-const render = (state, elements) => {
-  elements.form.focus();
-  // const { posts, feeds } = elements;
-  // const { subscribed } = state;
-  // here I need info aboud feeds and posts to build view
-};
+// const render = (state, elements) => {
+// elements.form.focus();
+// const { posts, feeds } = elements;
+// const { subscribed } = state;
+// here I need info aboud feeds and posts to build view
+// };
 
 const renderFeedback = (i118n, state, elements) => {
   elements.form.input = state.default;
@@ -81,7 +81,7 @@ export default (i118n, state, elements) => {
     const formData = new FormData(e.target);
     const value = formData.get('url');
     console.log(`this is input value ${value}`);
-    watcher.current = value;
+    watcher.inputCurrent = value;
   });
   // render(i118n, state, elements);
 };
