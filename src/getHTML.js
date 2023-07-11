@@ -11,5 +11,6 @@ import axios from 'axios';
 export default (feedLink) => {
   const allOriginsLink = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
   const linkToGo = allOriginsLink.concat(`${encodeURIComponent(feedLink)}`);
+  console.log(`this is address ${linkToGo}`);
   return axios.get(linkToGo);
 };

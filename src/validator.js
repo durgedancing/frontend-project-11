@@ -9,8 +9,8 @@ import parsMe from './parser';
 // enter-page
 const render = (state, elements) => {
   elements.form.focus();
-  const { posts, feeds } = elements;
-  const { subscribed } = state;
+  // const { posts, feeds } = elements;
+  // const { subscribed } = state;
   // here I need info aboud feeds and posts to build view
 };
 
@@ -83,6 +83,6 @@ export default (i118n, state, elements) => {
     console.log(`this is input value ${value}`);
     watcher.current = value;
   });
-  render(i118n, state, elements);
+  // render(i118n, state, elements);
 };
 // dont forget about focus()
