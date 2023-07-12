@@ -17,12 +17,9 @@ import parsMe from './parser';
 const renderFeedback = (i118n, state, elements) => {
   const {
     form,
-    input,
     feedback,
   } = elements;
-  console.log(`this is input text content before ${input.textContent}`);
-  input.textContent = state.default;
-  console.log(`this is input text content after ${input.textContent}`);
+  form.reset();
   form.focus();
   const feedbackMessage = state.feedback;
   console.log(`feedback massagev ${feedbackMessage}`);
@@ -31,13 +28,7 @@ const renderFeedback = (i118n, state, elements) => {
 };
 
 export default (i118n, state, elements) => {
-  const {
-    form,
-    input,
-    feedback,
-    posts,
-    feeds,
-  } = elements;
+  const { form } = elements;
   const watcher = onChange(state, (path, value) => {
     setLocale({
       mixed: {

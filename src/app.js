@@ -13,7 +13,6 @@ const elements = {
 export default () => {
   const state = {
     inputCurrent: '',
-    inputDefault: '',
     feedback: '', // current error or success
     subscribed: [],
   };
