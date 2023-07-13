@@ -22,6 +22,6 @@ export default () => {
     lng: 'ru',
     debug: true,
     resources,
-  })
-    .then((result) => app(result, state, elements));
+  });
+  return app(i18In, state, elements);
 };
