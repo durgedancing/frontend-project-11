@@ -50,7 +50,6 @@ export default (i118n, state, elements) => {
           .then((validFeed) => getHTML(validFeed))
           .then((response) => Promise.resolve(response))
           .then((response) => {
-            console.log(response);
             console.log(parsMe(response));
             watcher.feedback = 'positive';
           })
