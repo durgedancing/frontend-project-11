@@ -22,13 +22,8 @@ const renderFeedback = (i118n, state, elements) => {
   form.reset();
   form.focus();
   const feedbackMessage = state.feedback;
-  console.log(`feedback massage ${feedbackMessage}`); // somehow it works twice
-  console.log(i118n.t);
-  const { feedbacks } = i118n.t;
-  console.log(feedbacks);
-  console.log(`feedback text: ${i118n.t('feedbacks.feedbackMessage')}`);
-  console.log(`feedback text: ${i118n.t('feedbacks[feedbackMessage]')}`);
-  feedback.textContent = i118n.t('feedbacks.feedbackMessage');
+  console.log(i118n.t(`feedbacks.${feedbackMessage}`));
+  feedback.textContent = i118n.t(`feedbacks.${feedbackMessage}`);
 };
 
 export default (i118n, state, elements) => {
@@ -52,29 +47,19 @@ export default (i118n, state, elements) => {
     switch (path) {
       case 'inputCurrent':
         inputShema.validate(value)
-          .catch((error) => {
-            const currentError = error.message;
-            console.log(`error is ${currentError}`);
-            watcher.feedback = currentError;
-            return Promise.reject(new Error(currentError));
-          })
           .then((validFeed) => getHTML(validFeed))
-          // here i need to catch newtworkError
-          .catch((error) => {
-            const currentError = error.message;
-            watcher.feedback = currentError;
-            return Promise.reject(new Error(currentError));
-          })
           .then((response) => Promise.resolve(response))
           .then((response) => {
             console.log(response);
             console.log(parsMe(response));
+            watcher.feedback = 'positive';
+          })
+          .catch((error) => {
+            const currentError = error.message;
+            console.log(`error is ${currentError}`);
+            watcher.feedback = currentError;
+            throw new Error(currentError);
           });
-        // here i might catch noRSS err and then only render
-        // so i need to parse
-        // watcher.feedback = 'positive';
-        // state.subscribed.push(validFeed);
-        // render(i118n, state, elements);
         break;
       case 'feedback':
         console.log(`this is upcomingerror ${value}`);
