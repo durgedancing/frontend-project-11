@@ -62,7 +62,6 @@ export default (i118n, state, elements) => {
           });
         break;
       case 'feedback':
-        console.log(`this is upcomingerror ${value}`);
         renderFeedback(i118n, state, elements);
         break;
       default:
