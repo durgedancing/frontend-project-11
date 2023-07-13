@@ -56,6 +56,7 @@ export default (i118n, state, elements) => {
             const currentError = error.message;
             console.log(`error is ${currentError}`);
             watcher.feedback = currentError;
+            return Promise.reject(new Error(currentError));
           })
           .then((validFeed) => getHTML(validFeed))
           // here i need to catch newtworkError
