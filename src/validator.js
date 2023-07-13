@@ -22,14 +22,13 @@ const renderFeedback = (i118n, state, elements) => {
   form.reset();
   form.focus();
   const feedbackMessage = state.feedback;
-  console.log(`feedback massage ${feedbackMessage}`);
-  console.log(i118n);
-  console.log(i118n.translation);
-  console.log(i118n.ru.translation);
+  console.log(`feedback massage ${feedbackMessage}`); // somehow it works twice
+  console.log(i118n.t);
   const { feedbacks } = i118n.t;
-  console.log(`feedback text: ${feedbacks}`);
-  console.log(`feedback text: ${feedbacks[feedbackMessage]}`);
-  feedback.textContent = i118n.t.feedbacks.feedbackMessage;
+  console.log(feedbacks);
+  console.log(`feedback text: ${i118n.t('feedbacks.feedbackMessage')}`);
+  console.log(`feedback text: ${i118n.t('feedbacks[feedbackMessage]')}`);
+  feedback.textContent = i118n.t('feedbacks.feedbackMessage');
 };
 
 export default (i118n, state, elements) => {
@@ -60,9 +59,10 @@ export default (i118n, state, elements) => {
           })
           .then((validFeed) => getHTML(validFeed))
           // here i need to catch newtworkError
-          .catch(() => {
-            watcher.feedback = 'networkError';
-            return Promise.reject(new Error('networkError'));
+          .catch((error) => {
+            const currentError = error.message;
+            watcher.feedback = currentError;
+            return Promise.reject(new Error(currentError));
           })
           .then((response) => Promise.resolve(response))
           .then((response) => {
@@ -76,6 +76,7 @@ export default (i118n, state, elements) => {
         // render(i118n, state, elements);
         break;
       case 'feedback':
+        console.log(`this is upcomingerror ${value}`);
         renderFeedback(i118n, state, elements);
         break;
       default:

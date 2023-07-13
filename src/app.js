@@ -17,12 +17,11 @@ export default () => {
     subscribed: [],
   };
 
-  i18n
-    .createInstance()
-    .init({
-      lng: 'ru',
-      debug: true,
-      resources,
-    })
+  const i18In = i18n.createInstance();
+  i18In.init({
+    lng: 'ru',
+    debug: true,
+    resources,
+  })
     .then((result) => app(result, state, elements));
 };
