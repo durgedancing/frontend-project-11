@@ -22,9 +22,9 @@ const renderFeedback = (i118n, state, elements) => {
   form.reset();
   form.focus();
   const feedbackMessage = state.feedback;
-  console.log(`feedback massagev ${feedbackMessage}`);
-  console.log(`feedback text: ${i118n.t.feedbacks[feedbackMessage]}`);
-  feedback.textContent = i118n.feedbacks[feedbackMessage];
+  console.log(`feedback massage ${feedbackMessage}`);
+  console.log(`feedback text: ${i118n.t.feedbacks.feedbackMessage}`);
+  feedback.textContent = i118n.t.feedbacks.feedbackMessage;
 };
 
 export default (i118n, state, elements) => {
