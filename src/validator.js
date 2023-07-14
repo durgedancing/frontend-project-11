@@ -21,7 +21,8 @@ const renderFeedback = (i118n, state, elements) => {
   } = elements;
   form.reset();
   form.focus();
-  const feedbackMessage = state.feedback;
+  console.log(`checking error ${i118n.t('feedbacks').includes(state.feedback)}`);
+  const feedbackMessage = i118n.t('feedbacks').includes(state.feedback) ? state.feedback : 'networkError';
   console.log(i118n.t(`feedbacks.${feedbackMessage}`));
   feedback.textContent = i118n.t(`feedbacks.${feedbackMessage}`);
 };
@@ -48,7 +49,7 @@ export default (i118n, state, elements) => {
       case 'inputCurrent':
         inputShema.validate(value)
           .then((validFeed) => getHTML(validFeed)) // there is nothing in here
-          .then((response) => (response.ok ? response.json() : new Error('networkError')))
+          .then((response) => (response.ok ? response.data.content : new Error('networkError')))
           .then((data) => {
             console.log(data.contents);
             console.log(parsMe(data));
