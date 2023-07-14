@@ -49,7 +49,7 @@ export default (i118n, state, elements) => {
       case 'inputCurrent':
         inputShema.validate(value)
           .then((validFeed) => getHTML(validFeed)) // there is nothing in here
-          .then((response) => (response.ok ? response.data.content : new Error('networkError')))
+          .then((response) => (response.ok ? response.data.contents : new Error('networkError')))
           .then((data) => {
             console.log(data);
             console.log(parsMe(data));
