@@ -47,10 +47,11 @@ export default (i118n, state, elements) => {
     switch (path) {
       case 'inputCurrent':
         inputShema.validate(value)
-          .then((validFeed) => getHTML(validFeed))
-          .then((response) => Promise.resolve(response))
-          .then((response) => {
-            console.log(parsMe(response));
+          .then((validFeed) => getHTML(validFeed)) // there is nothing in here
+          .then((response) => (response.ok ? response.json() : new Error('networkError')))
+          .then((data) => {
+            console.log(data.contents);
+            console.log(parsMe(data));
             watcher.feedback = 'positive';
           })
           .catch((error) => {
