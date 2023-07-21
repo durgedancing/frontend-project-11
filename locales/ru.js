@@ -16,5 +16,7 @@ export default {
       default: 'Что-то пошло не так, уже разбираемся',
       positive: 'RSS успешно загружен',
     },
+    feeds: 'Фиды',
+    posts: 'Посты',
   },
 };

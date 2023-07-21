@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 // firstly i use allOrigins
 // what i will get?
@@ -12,5 +12,10 @@ export default (feedLink) => {
   const allOriginsLink = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
   const linkToGo = allOriginsLink.concat(feedLink);
   console.log(`this is address ${linkToGo}`);
-  return fetch(linkToGo);
+  return axios.get(linkToGo)
+    .catch(() => Promise.reject(new Error('networkError')))
+    .then((response) => {
+      const responseData = response.data.contents;
+      return Promise.resolve(responseData);
+    });
 };

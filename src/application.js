@@ -3,16 +3,7 @@ import onChange from 'on-change';
 import { setLocale, string } from 'yup';
 import getHTML from './getHTML';
 import parsMe from './parser';
-
-// what if i ll write different render for different situations?
-// page with feedback
-// enter-page
-// const render = (state, elements) => {
-// elements.form.focus();
-// const { posts, feeds } = elements;
-// const { subscribed } = state;
-// here I need info aboud feeds and posts to build view
-// };
+import renderFeeds from './render';
 
 const renderFeedback = (i118n, state, elements) => {
   const {
@@ -21,13 +12,12 @@ const renderFeedback = (i118n, state, elements) => {
   } = elements;
   form.reset();
   form.focus();
-  console.log(`checking error ${i118n.t('feedbacks').includes(state.feedback)}`);
-  const feedbackMessage = i118n.t('feedbacks').includes(state.feedback) ? state.feedback : 'networkError';
-  console.log(i118n.t(`feedbacks.${feedbackMessage}`));
+  const feedbackMessage = state.feedback;
+  // here i need figure out something with not-typical mistakes
   feedback.textContent = i118n.t(`feedbacks.${feedbackMessage}`);
 };
 
-export default (i118n, state, elements) => {
+export default (i118n, state, feeds, elements) => {
   const { form } = elements;
   const watcher = onChange(state, (path, value) => {
     setLocale({
@@ -42,17 +32,19 @@ export default (i118n, state, elements) => {
     });
     const inputShema = string()
       .required()
-      .notOneOf(state.subscribed)
+      .notOneOf(state.subscribed) // i am here its need to be rewritten
       .url();
 
     switch (path) {
       case 'inputCurrent':
         inputShema.validate(value)
-          .then((validFeed) => getHTML(validFeed)) // there is nothing in here
-          .then((response) => (response.ok ? response.data.contents : new Error('networkError')))
-          .then((data) => {
-            console.log(data);
-            console.log(parsMe(data));
+          .then((validUrl) => getHTML(validUrl))
+          .then((html) => {
+            const data = parsMe(html);
+            const { feedname } = data;
+            console.log(`this is feed name ${feedname}`);
+            watcher.subscribed.push(feedname);
+            feeds.push(data);
             watcher.feedback = 'positive';
           })
           .catch((error) => {
@@ -64,6 +56,9 @@ export default (i118n, state, elements) => {
         break;
       case 'feedback':
         renderFeedback(i118n, state, elements);
+        break;
+      case 'subscribed':
+        renderFeeds(i118n, feeds, elements);
         break;
       default:
         break;
@@ -78,6 +73,7 @@ export default (i118n, state, elements) => {
     console.log(`this is input value ${value}`);
     watcher.inputCurrent = value;
   });
-  // render(i118n, state, elements);
+  if (state.subscribed.lenght !== 0) {
+    renderFeeds(i118n, state, elements);
+  }
 };
-// dont forget about focus()

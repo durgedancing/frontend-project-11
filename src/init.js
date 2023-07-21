@@ -1,5 +1,5 @@
 import i18n from 'i18next';
-import app from './validator.js';
+import app from './application.js';
 import resources from '../locales/index.js';
 
 const elements = {
@@ -17,11 +17,13 @@ export default () => {
     subscribed: [],
   };
 
+  const feeds = [];
+
   const i18In = i18n.createInstance();
   i18In.init({
     lng: 'ru',
     debug: true,
     resources,
   });
-  return app(i18In, state, elements);
+  return app(i18In, state, feeds, elements);
 };
