@@ -1,5 +1,3 @@
-import { javascript } from "webpack";
-
 const createElement = (tagName, options = {}) => {
   const { styles, text } = options;
   const element = document.createElement(tagName);
