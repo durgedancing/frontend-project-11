@@ -13,7 +13,7 @@ const createElement = (tagName, options = {}) => {
   return element;
 };
 
-export default (i118n, feedsState, elements) => {
+export default (i118n, feedInfo, elements) => {
   elements.form.focus();
   const { posts, feeds } = elements;
 
@@ -24,7 +24,6 @@ export default (i118n, feedsState, elements) => {
 
   divHeader.append(header);
   divFeeds.append(divHeader, ulFeeds);
-  feeds.append(divFeeds); // may be it should be down
 
   const divPosts = createElement('div', { style: ['card', 'border-0'] });
   const divPostHeader = createElement('div', { style: 'card-body' });
@@ -33,10 +32,9 @@ export default (i118n, feedsState, elements) => {
 
   divPostHeader.append(postHeader);
   divPosts.append(divPostHeader, ulPosts);
-  posts.append(divPosts);
 
-  console.log(JSON.stringify(feedsState));
-  feedsState.forEach((feed) => {
+  feedInfo.forEach((feed) => { // here is nothing so foreach doesnt work
+    console.log('its hapenning!');
     const { feedName, feedLink, items } = feed;
     // first of all we create feeds in the right colomn
     const liFeed = createElement('li', { styles: ['list-group-item', 'border-0', 'border-end-0'] });
@@ -45,7 +43,9 @@ export default (i118n, feedsState, elements) => {
     liFeed.append(aFeed);
     ulFeeds.append(liFeed);
     // and then we should create posts in the left
+    console.log(`this is posts ${JSON.stringify(items)}`);
     items.forEach(({ post, link, date }) => {
+      console.log(`this is topic ${post}, ${link}`);
       const liPost = createElement('li', { styles: ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0'] });
       const aPost = createElement('a', { style: 'fw-bold', text: post });
       aPost.setAttribute('href', link);
@@ -59,4 +59,6 @@ export default (i118n, feedsState, elements) => {
       ulPosts.append(liPost);
     });
   });
+  feeds.replaceChildren(divFeeds);
+  posts.replaceChildren(divPosts);
 };

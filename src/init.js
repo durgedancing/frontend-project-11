@@ -17,7 +17,7 @@ export default () => {
     subscribed: [],
   };
 
-  const feeds = [];
+  const feedInfo = [];
 
   const i18In = i18n.createInstance();
   i18In.init({
@@ -25,5 +25,5 @@ export default () => {
     debug: true,
     resources,
   });
-  return app(i18In, state, feeds, elements);
+  return app(i18In, state, feedInfo, elements);
 };

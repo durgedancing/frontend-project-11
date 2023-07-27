@@ -5,6 +5,16 @@ import getHTML from './getHTML';
 import parsMe from './parser';
 import renderFeeds from './render';
 
+/* const render = (i118n, state, feeds, elements) => {
+  const {
+    form,
+    feedback,
+  } = elements;
+  form.reset();
+  form.focus();
+  const feedbackMessage = state.feedback;
+}; */
+
 const renderFeedback = (i118n, state, elements) => {
   const {
     form,
@@ -14,10 +24,12 @@ const renderFeedback = (i118n, state, elements) => {
   form.focus();
   const feedbackMessage = state.feedback;
   // here i need figure out something with not-typical mistakes
-  feedback.textContent = i118n.t(`feedbacks.${feedbackMessage}`);
+  const feedbackToShow = i118n.t(`feedbacks.${feedbackMessage}`) ? i118n.t(`feedbacks.${feedbackMessage}`) : i118n.t('feedbacks.default');
+  console.log(`this is the message i am going to show ${feedbackToShow}`);
+  feedback.textContent = feedbackToShow;
 };
 
-export default (i118n, state, feeds, elements) => {
+export default (i118n, state, feedInfo, elements) => {
   const { form } = elements;
   const watcher = onChange(state, (path, value) => {
     setLocale({
@@ -32,19 +44,18 @@ export default (i118n, state, feeds, elements) => {
     });
     const inputShema = string()
       .required()
-      .notOneOf(state.subscribed) // i am here its need to be rewritten
+      .notOneOf(state.subscribed)
       .url();
 
     switch (path) {
       case 'inputCurrent':
         inputShema.validate(value)
           .then((validUrl) => getHTML(validUrl))
-          .then((html) => {
-            const data = parsMe(html);
-            const { feedname } = data;
-            console.log(`this is feed name ${feedname}`);
-            watcher.subscribed.push(feedname);
-            feeds.push(data);
+          .then((html) => parsMe(html))
+          .then((data) => {
+            const { feedName } = data;
+            feedInfo.push(data);
+            watcher.subscribed.push(feedName);
             watcher.feedback = 'positive';
           })
           .catch((error) => {
@@ -58,7 +69,8 @@ export default (i118n, state, feeds, elements) => {
         renderFeedback(i118n, state, elements);
         break;
       case 'subscribed':
-        renderFeeds(i118n, feeds, elements);
+        console.log(`this is how mane feeds we have ${feedInfo.length}`);
+        renderFeeds(i118n, feedInfo, elements);
         break;
       default:
         break;
@@ -73,7 +85,8 @@ export default (i118n, state, feeds, elements) => {
     console.log(`this is input value ${value}`);
     watcher.inputCurrent = value;
   });
-  if (state.subscribed.lenght !== 0) {
-    renderFeeds(i118n, state, elements);
+  if (state.subscribed.length !== 0) {
+    console.log('there are some feeds to load');
+    renderFeeds(i118n, feedInfo, elements);
   }
 };
