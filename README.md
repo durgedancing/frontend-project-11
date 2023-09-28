@@ -1,3 +1,6 @@
+RSS feeds are an easy way to keep track of new content from various sources like news websites, blogs or forums. Unfinished.
+
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/durgedancing/frontend-project-11/workflows/hexlet-check/badge.svg)](https://github.com/durgedancing/frontend-project-11/actions)
 
